@@ -3,8 +3,11 @@ import cv2
 from pathlib import Path
 from IPython.display import display, Image as IPImage
 
-input_folder = '/content/input'
-annotation_folder = '/content/output'
+input_folder = '/content/images/' # @param {type:"string"}
+annotation_folder = '/content/annotation/' # @param {type:"string"}
+
+output_folder = '/content/output/' # @param {type:"string"}
+os.makedirs(output_folder, exist_ok=True)
 
 labels = ["face", "hair", "eye", "hands", "feet", "upper_body", "lower_body"]
 
@@ -45,7 +48,7 @@ for img_path in Path(input_folder).glob('*.*'):
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
     # Save the image with bounding boxes and labels
-    output_path = f'/content/output/{img_name}_annotated.jpg'
+    output_path = os.path.join(output_folder, f'{img_name}_annotated.jpg')
     cv2.imwrite(output_path, cv2.cvtColor(img_rgb, cv2.COLOR_RGB2BGR))
 
     # Display the image with bounding boxes and labels
